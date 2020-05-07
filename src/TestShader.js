@@ -1,13 +1,8 @@
 import React, { useRef, useState, useMemo, useCallback } from "react";
-import { useFrame, Dom } from "react-three-fiber";
+import { useFrame } from "react-three-fiber";
 import { OrbitControls } from "drei";
-import styled from "styled-components";
 import { CanvasContainer } from "./CanvasContainer";
 import { Controls, useControl } from 'react-three-gui';
-
-const Slider = styled.input.attrs((props) => ({
-  type: "range",
-}))``;
 
 const Mesh = () => {
   const ref = useRef();
@@ -56,8 +51,6 @@ const Mesh = () => {
     [displacement]
   );
 
-  // const [colorSpeed, setColorSpeed] = useState(0.01);
-  // const [distortionLvl, setDistortionLvl] = useState(0);
   const colorSpeed = useControl('Color speed', {type: 'number', value: 0.1, max: 10.0})
   const distortionLvl = useControl('Distortion lvl', {type: 'number', value: 0.0, max: 1.0})
 
@@ -89,13 +82,6 @@ const Mesh = () => {
       </boxBufferGeometry>
       <shaderMaterial attach="material" {...shaderData} />
       <OrbitControls />
-      {/* <Dom
-        style={{ transform: "" }}
-        // center
-        // position={[100,0,100]}
-      >
-        <Slider />
-      </Dom> */}
     </mesh>
   );
 };
