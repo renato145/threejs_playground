@@ -12,6 +12,9 @@ import { SurfaceShader } from "./SurfaceShader";
 import { TestShader } from "./TestShader";
 import { PlaneGeometry } from "./PlaneGeometry";
 import { PlaneGeometryShader } from "./PlaneGeometryShader";
+import { ShaderTemplate } from './ShaderTemplate';
+import { ShaderShapes } from './ShaderShapes';
+import { ShaderTexture } from './ShaderTexture';
 import "./App.css";
 
 const BASE_URL = "threejs_playground";
@@ -26,7 +29,7 @@ const NLink = styled(NavLink).attrs((props) => ({
   }
 `;
 
-const Link = styled.a`
+export const Link = styled.a`
   color: #abc;
   font-size: 1rem;
   &.active {
@@ -40,9 +43,9 @@ const NavBar = styled.div`
   flex-wrap: wrap;
   flex-flow: column;
   justify-content: space-between;
-  padding-left: 1rem;
-  padding-right: 0rem;
-  padding-top: 3rem;
+  margin-top: 3rem;
+  padding: 1em 1em;
+  background-color: rgba(0, 0, 0, 0.6);
   z-index: 100;
 
   & > div {
@@ -90,6 +93,15 @@ const App = () => {
           <NLink to={`/${BASE_URL}/PlaneGeometryShader`}>PlaneGeometryShader</NLink>
         </div>
         <div>
+          <NLink to={`/${BASE_URL}/ShaderTemplate`}>ShaderTemplate</NLink>
+        </div>
+        <div>
+          <NLink to={`/${BASE_URL}/ShaderShapes`}>ShaderShapes</NLink>
+        </div>
+        <div>
+          <NLink to={`/${BASE_URL}/ShaderTexture`}>ShaderTexture</NLink>
+        </div>
+        <div>
           <Link
             href="https://github.com/renato145/threejs_playground/"
             target="_black"
@@ -129,6 +141,15 @@ const App = () => {
         </Route>
         <Route path={`/${BASE_URL}/PlaneGeometryShader`}>
           <PlaneGeometryShader />
+        </Route>
+        <Route path={`/${BASE_URL}/ShaderTemplate`}>
+          <ShaderTemplate />
+        </Route>
+        <Route path={`/${BASE_URL}/ShaderShapes`}>
+          <ShaderShapes />
+        </Route>
+        <Route path={`/${BASE_URL}/ShaderTexture`}>
+          <ShaderTexture />
         </Route>
       </Switch>
     </Router>

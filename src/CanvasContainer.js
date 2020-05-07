@@ -11,24 +11,24 @@ const Container = styled.div`
   }
 `;
 
-const Text = styled.div`
+export const Text = styled.div`
   color: #fff;
   font-size: 1.2em;
   text-align: center;
   padding-top: 0.5em;
 `;
 
-export const CanvasContainer = ({ text, children, xtra }) => {
+export const CanvasContainer = ({ text, children, xtra, measure }) => {
   return (
-    <Container>
+    <Container ref={measure}>
       <Canvas>
         <ambientLight />
         <pointLight position={[10, 10, 10]} />
         {children}
         <Stats />
       </Canvas>
-      { xtra && xtra}
-      { text && <Text>{text}</Text>}
+      {xtra && xtra}
+      {text && <Text>{text}</Text>}
     </Container>
   );
 };
