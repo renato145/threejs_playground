@@ -26,7 +26,7 @@ const Mesh = () => {
   );
 };
 
-export const ThreeTest1 = () => {
+export const BoxGeometry = () => {
   return (
     <CanvasContainer text="Simple box geometry with hover event.">
       <Mesh />

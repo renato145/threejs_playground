@@ -6,10 +6,12 @@ import {
   Switch,
 } from "react-router-dom";
 import styled from "styled-components";
-import { ThreeTest1 } from "./ThreeTest1";
-import { ThreeTest2 } from "./ThreeTest2";
-import { ThreeTest3 } from "./ThreeTest3";
+import { BoxGeometry } from "./BoxGeometry";
+import { SurfaceD3 } from "./SurfaceD3";
+import { SurfaceShader } from "./SurfaceShader";
 import { TestShader } from "./TestShader";
+import { PlaneGeometry } from "./PlaneGeometry";
+import { PlaneGeometryShader } from "./PlaneGeometryShader";
 import "./App.css";
 
 const BASE_URL = "threejs_playground";
@@ -70,16 +72,22 @@ const App = () => {
           <NLink to={`/${BASE_URL}/`}>Home</NLink>
         </div>
         <div>
-          <NLink to={`/${BASE_URL}/ThreeTest1`}>ThreeTest1</NLink>
+          <NLink to={`/${BASE_URL}/BoxGeometry`}>BoxGeometry</NLink>
         </div>
         <div>
-          <NLink to={`/${BASE_URL}/ThreeTest2`}>ThreeTest2</NLink>
+          <NLink to={`/${BASE_URL}/SurfaceD3`}>SurfaceD3</NLink>
         </div>
         <div>
-          <NLink to={`/${BASE_URL}/ThreeTest3`}>ThreeTest3</NLink>
+          <NLink to={`/${BASE_URL}/SurfaceShader`}>SurfaceShader</NLink>
         </div>
         <div>
           <NLink to={`/${BASE_URL}/TestShader`}>TestShader</NLink>
+        </div>
+        <div>
+          <NLink to={`/${BASE_URL}/PlaneGeometry`}>PlaneGeometry</NLink>
+        </div>
+        <div>
+          <NLink to={`/${BASE_URL}/PlaneGeometryShader`}>PlaneGeometryShader</NLink>
         </div>
         <div>
           <Link
@@ -104,17 +112,23 @@ const App = () => {
             .
           </SubText>
         </Route>
-        <Route path={`/${BASE_URL}/ThreeTest1`}>
-          <ThreeTest1 />
+        <Route path={`/${BASE_URL}/BoxGeometry`}>
+          <BoxGeometry />
         </Route>
-        <Route path={`/${BASE_URL}/ThreeTest2`}>
-          <ThreeTest2 />
+        <Route path={`/${BASE_URL}/SurfaceD3`}>
+          <SurfaceD3 />
         </Route>
-        <Route path={`/${BASE_URL}/ThreeTest3`}>
-          <ThreeTest3 />
+        <Route path={`/${BASE_URL}/SurfaceShader`}>
+          <SurfaceShader />
         </Route>
         <Route path={`/${BASE_URL}/TestShader`}>
           <TestShader />
+        </Route>
+        <Route path={`/${BASE_URL}/PlaneGeometry`}>
+          <PlaneGeometry />
+        </Route>
+        <Route path={`/${BASE_URL}/PlaneGeometryShader`}>
+          <PlaneGeometryShader />
         </Route>
       </Switch>
     </Router>

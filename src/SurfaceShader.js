@@ -1,7 +1,6 @@
-import React, { useRef, useState, useMemo } from "react";
-import { useFrame } from "react-three-fiber";
+import React, { useMemo } from "react";
 import { DoubleSide } from "three";
-import { OrbitControls, Sky } from "drei";
+import { OrbitControls } from "drei";
 import { color, extent, scaleLinear, interpolateMagma } from "d3";
 import { CanvasContainer } from "./CanvasContainer";
 
@@ -55,7 +54,7 @@ const Mesh = () => {
       vertices.push((ygrid[i] - ymid) * scalefac);
       vertices.push((values[i] - zmid) * scalefacz);
       const col = color(getColor(values[i]));
-      colors.push(col.r/255, col.g/255, col.b/255)
+      colors.push(col.r / 255, col.g / 255, col.b / 255);
     }
     return [new Float32Array(vertices), new Float32Array(colors)];
   }, []);
@@ -75,13 +74,36 @@ const Mesh = () => {
     return new Uint16Array(res);
   }, []);
 
+  const shaderData = useMemo(() => {
+    const vertexShader = `
+  varying float z;
+
+  void main() {
+    vec3 pos = position;
+    z = 0.41 + pos.z*1.5;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+  }
+`;
+
+    const fragmentShader = `
+  varying float z;
+  
+  void main() {
+    gl_FragColor = vec4(z, cos(z*200.0), cos(z*100.0), 1.0);
+  }
+`;
+
+    return { vertexShader, fragmentShader };
+  }, []);
+
   return (
     <mesh
-      rotation-x={-Math.PI/2}
-    // ref={ref}
-    scale={[4,4,4]}
-    // onPointerOver={() => setHover(true)}
-    // onPointerOut={() => setHover(false)}
+      rotation-x={-Math.PI / 2}
+      // ref={ref}
+      scale={[4, 4, 4]}
+      // onPointerOver={() => setHover(true)}
+      // onPointerOut={() => setHover(false)}
+      // onPointerMove={e => console.log(e.unprojectedPoint)}
     >
       <bufferGeometry
         attach="geometry"
@@ -110,16 +132,16 @@ const Mesh = () => {
           itemSize={1}
         />
       </bufferGeometry>
-      <meshPhongMaterial attach="material" side={DoubleSide} vertexColors={true}  />
+      <shaderMaterial attach="material" {...shaderData} side={DoubleSide}  />
+
       <OrbitControls />
-      {/* <Sky /> */}
     </mesh>
   );
 };
 
-export const ThreeTest2 = () => {
+export const SurfaceShader = () => {
   return (
-    <CanvasContainer text='Surface plot using vertex and faces, colored with d3.'>
+    <CanvasContainer text='Surface plot using vertex and faces, colored with a custom fragment shader.'>
       <Mesh />
     </CanvasContainer>
   );
