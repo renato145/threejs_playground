@@ -6,12 +6,13 @@ import {
   Switch,
 } from "react-router-dom";
 import styled from "styled-components";
-import { CanvasContainer } from "./CanvasContainer";
 import { ThreeTest1 } from "./ThreeTest1";
 import { ThreeTest2 } from "./ThreeTest2";
 import { ThreeTest3 } from "./ThreeTest3";
 import { TestShader } from "./TestShader";
 import "./App.css";
+
+const BASE_URL = 'threejs_playground';
 
 const NLink = styled(NavLink).attrs((props) => ({
   exact: true,
@@ -47,35 +48,35 @@ const App = () => {
     <Router>
       <NavBar>
         <div>
-          <NLink to="/">Home</NLink>
+          <NLink to={`/${BASE_URL}/`}>Home</NLink>
         </div>
         <div>
-          <NLink to="/ThreeTest1">ThreeTest1</NLink>
+          <NLink to={`/${BASE_URL}/ThreeTest1`}>ThreeTest1</NLink>
         </div>
         <div>
-          <NLink to="/ThreeTest2">ThreeTest2</NLink>
+          <NLink to={`/${BASE_URL}/ThreeTest2`}>ThreeTest2</NLink>
         </div>
         <div>
-          <NLink to="/ThreeTest3">ThreeTest3</NLink>
+          <NLink to={`/${BASE_URL}/ThreeTest3`}>ThreeTest3</NLink>
         </div>
         <div>
-          <NLink to="/TestShader">TestShader</NLink>
+          <NLink to={`/${BASE_URL}/TestShader`}>TestShader</NLink>
         </div>
       </NavBar>
       <Switch>
-        <Route exact path="/">
+        <Route exact path={`/${BASE_URL}/`}>
           <Text>Some threejs tests</Text>
         </Route>
-        <Route path="/ThreeTest1">
+        <Route path={`/${BASE_URL}/ThreeTest1`}>
           <ThreeTest1 />
         </Route>
-        <Route path="/ThreeTest2">
+        <Route path={`/${BASE_URL}/ThreeTest2`}>
           <ThreeTest2 />
         </Route>
-        <Route path="/ThreeTest3">
+        <Route path={`/${BASE_URL}/ThreeTest3`}>
           <ThreeTest3 />
         </Route>
-        <Route path="/TestShader">
+        <Route path={`/${BASE_URL}/TestShader`}>
           <TestShader />
         </Route>
       </Switch>
