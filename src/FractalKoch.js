@@ -1,5 +1,5 @@
-import React, { useMemo, useRef, useEffect, useState } from "react";
-import { Vector2, TextureLoader, RepeatWrapping } from "three";
+import React, { useMemo, useEffect, useState } from "react";
+import { Vector2 } from "three";
 import useMeasure from "react-use-measure";
 import { ResizeObserver } from "@juggle/resize-observer";
 import { useThree, useFrame } from "react-three-fiber";
@@ -8,13 +8,7 @@ import { CanvasContainer } from "./CanvasContainer";
 import { Text } from "./CanvasContainer";
 import exampleTexture from "./textures/texture1.png";
 import { ButtonImageUpload } from "./ButtonImageUpload";
-
-const loadTexture = url => {
-  const res = new TextureLoader().load(url);
-  res.wrapS = RepeatWrapping;
-  res.wrapT = RepeatWrapping;
-  return res;
-}
+import { loadTexture } from './utils';
 
 const Mesh = ({ bounds, textureUrl }) => {
   const { mouse } = useThree();
