@@ -117,7 +117,7 @@ const CustomContainer = styled.div`
 const Xtra = ({ handleUpload }) => (
   <CustomContainer>
     <Text>
-      Example of a Koch Snowflake fractal pattern, try a custom patter:
+      Example of a Koch Snowflake fractal pattern, try a custom pattern:
     </Text>
     <ButtonImageUpload style={{ marginLeft: "0.5em" }} text="Upload texture" handleUpload={handleUpload} />
   </CustomContainer>
