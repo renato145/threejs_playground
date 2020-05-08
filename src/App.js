@@ -12,9 +12,10 @@ import { SurfaceShader } from "./SurfaceShader";
 import { TestShader } from "./TestShader";
 import { PlaneGeometry } from "./PlaneGeometry";
 import { PlaneGeometryShader } from "./PlaneGeometryShader";
-import { ShaderTemplate } from './ShaderTemplate';
-import { ShaderShapes } from './ShaderShapes';
-import { ShaderTexture } from './ShaderTexture';
+import { ShaderTemplate } from "./ShaderTemplate";
+import { ShaderShapes } from "./ShaderShapes";
+import { ShaderTexture } from "./ShaderTexture";
+import { FractalKoch } from "./FractalKoch";
 import "./App.css";
 
 const BASE_URL = "threejs_playground";
@@ -90,7 +91,9 @@ const App = () => {
           <NLink to={`/${BASE_URL}/PlaneGeometry`}>PlaneGeometry</NLink>
         </div>
         <div>
-          <NLink to={`/${BASE_URL}/PlaneGeometryShader`}>PlaneGeometryShader</NLink>
+          <NLink to={`/${BASE_URL}/PlaneGeometryShader`}>
+            PlaneGeometryShader
+          </NLink>
         </div>
         <div>
           <NLink to={`/${BASE_URL}/ShaderTemplate`}>ShaderTemplate</NLink>
@@ -100,6 +103,9 @@ const App = () => {
         </div>
         <div>
           <NLink to={`/${BASE_URL}/ShaderTexture`}>ShaderTexture</NLink>
+        </div>
+        <div>
+          <NLink to={`/${BASE_URL}/FractalKoch`}>FractalKoch</NLink>
         </div>
         <div>
           <Link
@@ -150,6 +156,9 @@ const App = () => {
         </Route>
         <Route path={`/${BASE_URL}/ShaderTexture`}>
           <ShaderTexture />
+        </Route>
+        <Route path={`/${BASE_URL}/FractalKoch`}>
+          <FractalKoch />
         </Route>
       </Switch>
     </Router>
