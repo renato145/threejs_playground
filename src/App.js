@@ -4,6 +4,7 @@ import {
   Route,
   NavLink,
   Switch,
+  useLocation,
 } from "react-router-dom";
 import styled from "styled-components";
 import { BoxGeometry } from "./BoxGeometry";
@@ -48,10 +49,23 @@ const NavBar = styled.div`
   padding: 1em 1em;
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 100;
+  transition: all 0.2s ease-out;
+  border-right: rgba(20, 20, 20, 0.6) 1.0rem solid;
 
   & > div {
     padding-bottom: 0.5rem;
   }
+
+  ${({ isHome }) =>
+    !isHome &&
+    `
+    transform: translateX(calc(80px - 100%));
+    padding-right: 80px;
+
+    &:hover {
+      transform: translateX(0px);
+      padding-right: 1em;
+    }`}
 `;
 
 const Text = styled.div`
@@ -68,10 +82,13 @@ const SubText = styled.div`
   padding-top: 3em;
 `;
 
-const App = () => {
+const AppContent = () => {
+  const location = useLocation();
+  const isHome = location.pathname.replace(/\//g, "") === BASE_URL;
+
   return (
-    <Router>
-      <NavBar>
+    <>
+      <NavBar isHome={isHome}>
         <div>
           <NLink to={`/${BASE_URL}/`}>Home</NLink>
         </div>
@@ -161,8 +178,14 @@ const App = () => {
           <FractalKoch />
         </Route>
       </Switch>
-    </Router>
+    </>
   );
 };
+
+const App = () => (
+  <Router>
+    <AppContent />
+  </Router>
+);
 
 export default App;
