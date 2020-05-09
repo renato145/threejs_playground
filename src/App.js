@@ -50,7 +50,6 @@ const NavBar = styled.div`
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 100;
   transition: all 0.2s ease-out;
-  border-right: rgba(20, 20, 20, 0.6) 1.0rem solid;
 
   & > div {
     padding-bottom: 0.5rem;
@@ -59,6 +58,7 @@ const NavBar = styled.div`
   ${({ isHome }) =>
     !isHome &&
     `
+    border-right: rgba(20, 20, 20, 0.6) 1.0rem solid;
     transform: translateX(calc(80px - 100%));
     padding-right: 80px;
 
@@ -79,8 +79,24 @@ const SubText = styled.div`
   color: #fff;
   font-size: 1.2em;
   text-align: center;
-  padding-top: 3em;
+  padding-top: 0.5em;
 `;
+
+const HomeContent = () => (
+  <>
+    <Text>Threejs playground</Text>
+    <SubText style={{paddingTop: "3em"}}>
+      Made by: Renato Hermoza, check the{" "}
+      <Link
+        href="https://github.com/renato145/threejs_playground/"
+        target="_black"
+      >
+        source code
+      </Link>
+      .
+    </SubText>
+  </>
+);
 
 const AppContent = () => {
   const location = useLocation();
@@ -135,17 +151,7 @@ const AppContent = () => {
       </NavBar>
       <Switch>
         <Route exact path={`/${BASE_URL}/`}>
-          <Text>Threejs playground</Text>
-          <SubText>
-            Made by: Renato Hermoza, check the{" "}
-            <Link
-              href="https://github.com/renato145/threejs_playground/"
-              target="_black"
-            >
-              source code
-            </Link>
-            .
-          </SubText>
+          <HomeContent />
         </Route>
         <Route path={`/${BASE_URL}/BoxGeometry`}>
           <BoxGeometry />
