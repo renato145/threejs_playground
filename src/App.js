@@ -65,6 +65,7 @@ const NavBar = styled.div`
     &:hover {
       transform: translateX(0px);
       padding-right: 1em;
+      border-right: rgba(0, 0, 0, 0.0) 1.0rem solid;
     }`}
 `;
 
