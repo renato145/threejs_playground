@@ -18,9 +18,9 @@ export const Text = styled.div`
   padding-top: 0.5em;
 `;
 
-export const CanvasContainer = ({ text, children, xtra, measure }) => {
+export const CanvasContainer = ({ text, children, xtra, measure, ...props }) => {
   return (
-    <Container ref={measure}>
+    <Container ref={measure} {...props}>
       <Canvas>
         <ambientLight />
         <pointLight position={[10, 10, 10]} />

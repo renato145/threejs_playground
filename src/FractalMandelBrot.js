@@ -1,12 +1,9 @@
-import React, { useMemo, useEffect, useState, Suspense } from "react";
+import React, { useMemo, useEffect, Suspense } from "react";
 import { Vector2 } from "three";
 import useMeasure from "react-use-measure";
 import { ResizeObserver } from "@juggle/resize-observer";
 import { useThree, useFrame } from "react-three-fiber";
-import styled from "styled-components";
 import { CanvasContainer } from "./CanvasContainer";
-import { Text } from "./CanvasContainer";
-import { ButtonImageUpload } from "./ButtonImageUpload";
 import { StandardEffects } from "drei";
 
 const Mesh = ({ bounds }) => {

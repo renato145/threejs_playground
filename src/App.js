@@ -18,6 +18,7 @@ import { ShaderShapes } from "./ShaderShapes";
 import { ShaderTexture } from "./ShaderTexture";
 import { FractalKoch } from "./FractalKoch";
 import { FractalMandelBrot } from "./FractalMandelBrot";
+import { ShaderEditor } from "./ShaderEditor";
 import "./App.css";
 
 const BASE_URL = "threejs_playground";
@@ -146,6 +147,9 @@ const AppContent = () => {
           <NLink to={`/${BASE_URL}/FractalMandelBrot`}>FractalMandelBrot</NLink>
         </div>
         <div>
+          <NLink to={`/${BASE_URL}/ShaderEditor`}>ShaderEditor</NLink>
+        </div>
+        <div>
           <Link
             href="https://github.com/renato145/threejs_playground/"
             target="_black"
@@ -190,6 +194,9 @@ const AppContent = () => {
         </Route>
         <Route path={`/${BASE_URL}/FractalMandelBrot`}>
           <FractalMandelBrot />
+        </Route>
+        <Route path={`/${BASE_URL}/ShaderEditor`}>
+          <ShaderEditor />
         </Route>
       </Switch>
     </>
