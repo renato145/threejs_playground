@@ -90,10 +90,10 @@ const MainContainer = styled.div`
   grid-row-gap: 2vh;
 `;
 
-const VERTEX_SHADER = `void main() {
+const VERTEX_SHADER = /* glsl */`void main() {
   gl_Position = vec4( position, 1.0 );
 }`;
-const FRAGMENT_SHADER = `uniform float u_time;
+const FRAGMENT_SHADER = /* glsl */`uniform float u_time;
 uniform vec2 u_resolution;
 uniform vec2 u_mouse;
 uniform sampler2D u_texture;

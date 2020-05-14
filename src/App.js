@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  BrowserRouter as Router,
+  HashRouter,
   Route,
   NavLink,
   Switch,
@@ -20,8 +20,6 @@ import { FractalKoch } from "./FractalKoch";
 import { FractalMandelBrot } from "./FractalMandelBrot";
 import { ShaderEditor } from "./ShaderEditor";
 import "./App.css";
-
-const BASE_URL = "threejs_playground";
 
 const NLink = styled(NavLink).attrs((props) => ({
   exact: true,
@@ -103,51 +101,51 @@ const HomeContent = () => (
 
 const AppContent = () => {
   const location = useLocation();
-  const isHome = location.pathname.replace(/\//g, "") === BASE_URL;
+  const isHome = location.pathname === '/';
 
   return (
     <>
       <NavBar isHome={isHome}>
         <div>
-          <NLink to={`/${BASE_URL}/`}>Home</NLink>
+          <NLink to={`/`}>Home</NLink>
         </div>
         <div>
-          <NLink to={`/${BASE_URL}/BoxGeometry`}>BoxGeometry</NLink>
+          <NLink to={`/BoxGeometry`}>BoxGeometry</NLink>
         </div>
         <div>
-          <NLink to={`/${BASE_URL}/SurfaceD3`}>SurfaceD3</NLink>
+          <NLink to={`/SurfaceD3`}>SurfaceD3</NLink>
         </div>
         <div>
-          <NLink to={`/${BASE_URL}/SurfaceShader`}>SurfaceShader</NLink>
+          <NLink to={`/SurfaceShader`}>SurfaceShader</NLink>
         </div>
         <div>
-          <NLink to={`/${BASE_URL}/TestShader`}>TestShader</NLink>
+          <NLink to={`/TestShader`}>TestShader</NLink>
         </div>
         <div>
-          <NLink to={`/${BASE_URL}/PlaneGeometry`}>PlaneGeometry</NLink>
+          <NLink to={`/PlaneGeometry`}>PlaneGeometry</NLink>
         </div>
         <div>
-          <NLink to={`/${BASE_URL}/PlaneGeometryShader`}>
+          <NLink to={`/PlaneGeometryShader`}>
             PlaneGeometryShader
           </NLink>
         </div>
         <div>
-          <NLink to={`/${BASE_URL}/ShaderTemplate`}>ShaderTemplate</NLink>
+          <NLink to={`/ShaderTemplate`}>ShaderTemplate</NLink>
         </div>
         <div>
-          <NLink to={`/${BASE_URL}/ShaderShapes`}>ShaderShapes</NLink>
+          <NLink to={`/ShaderShapes`}>ShaderShapes</NLink>
         </div>
         <div>
-          <NLink to={`/${BASE_URL}/ShaderTexture`}>ShaderTexture</NLink>
+          <NLink to={`/ShaderTexture`}>ShaderTexture</NLink>
         </div>
         <div>
-          <NLink to={`/${BASE_URL}/FractalKoch`}>FractalKoch</NLink>
+          <NLink to={`/FractalKoch`}>FractalKoch</NLink>
         </div>
         <div>
-          <NLink to={`/${BASE_URL}/FractalMandelBrot`}>FractalMandelBrot</NLink>
+          <NLink to={`/FractalMandelBrot`}>FractalMandelBrot</NLink>
         </div>
         <div>
-          <NLink to={`/${BASE_URL}/ShaderEditor`}>ShaderEditor</NLink>
+          <NLink to={`/ShaderEditor`}>ShaderEditor</NLink>
         </div>
         <div>
           <Link
@@ -159,43 +157,43 @@ const AppContent = () => {
         </div>
       </NavBar>
       <Switch>
-        <Route exact path={`/${BASE_URL}/`}>
+        <Route exact path={`/`}>
           <HomeContent />
         </Route>
-        <Route path={`/${BASE_URL}/BoxGeometry`}>
+        <Route path={`/BoxGeometry`}>
           <BoxGeometry />
         </Route>
-        <Route path={`/${BASE_URL}/SurfaceD3`}>
+        <Route path={`/SurfaceD3`}>
           <SurfaceD3 />
         </Route>
-        <Route path={`/${BASE_URL}/SurfaceShader`}>
+        <Route path={`/SurfaceShader`}>
           <SurfaceShader />
         </Route>
-        <Route path={`/${BASE_URL}/TestShader`}>
+        <Route path={`/TestShader`}>
           <TestShader />
         </Route>
-        <Route path={`/${BASE_URL}/PlaneGeometry`}>
+        <Route path={`/PlaneGeometry`}>
           <PlaneGeometry />
         </Route>
-        <Route path={`/${BASE_URL}/PlaneGeometryShader`}>
+        <Route path={`/PlaneGeometryShader`}>
           <PlaneGeometryShader />
         </Route>
-        <Route path={`/${BASE_URL}/ShaderTemplate`}>
+        <Route path={`/ShaderTemplate`}>
           <ShaderTemplate />
         </Route>
-        <Route path={`/${BASE_URL}/ShaderShapes`}>
+        <Route path={`/ShaderShapes`}>
           <ShaderShapes />
         </Route>
-        <Route path={`/${BASE_URL}/ShaderTexture`}>
+        <Route path={`/ShaderTexture`}>
           <ShaderTexture />
         </Route>
-        <Route path={`/${BASE_URL}/FractalKoch`}>
+        <Route path={`/FractalKoch`}>
           <FractalKoch />
         </Route>
-        <Route path={`/${BASE_URL}/FractalMandelBrot`}>
+        <Route path={`/FractalMandelBrot`}>
           <FractalMandelBrot />
         </Route>
-        <Route path={`/${BASE_URL}/ShaderEditor`}>
+        <Route path={`/ShaderEditor`}>
           <ShaderEditor />
         </Route>
       </Switch>
@@ -204,9 +202,9 @@ const AppContent = () => {
 };
 
 const App = () => (
-  <Router>
+  <HashRouter basename='/'>
     <AppContent />
-  </Router>
+  </HashRouter>
 );
 
 export default App;
