@@ -2,8 +2,6 @@ import React, { useMemo, useEffect, useState, useCallback } from "react";
 import Editor from "react-simple-code-editor";
 import Highlight, { defaultProps } from "prism-react-renderer";
 import { Vector2 } from "three";
-import useMeasure from "react-use-measure";
-import { ResizeObserver } from "@juggle/resize-observer";
 import { useThree, useFrame, useUpdate } from "react-three-fiber";
 import styled from "styled-components";
 import { CanvasContainer, Text } from "./CanvasContainer";
@@ -14,7 +12,7 @@ import { ButtonImageUpload } from "./ButtonImageUpload";
 import "./ShaderEditor.css";
 
 const Mesh = ({ vertexShaderCode, fragmentShaderCode, bounds, textureUrl }) => {
-  const { mouse } = useThree();
+  const { mouse, clock, aspect } = useThree();
   const texture = useMemo(() => loadTexture(exampleTexture), []);
   const ref = useUpdate(
     (material) => {
@@ -25,59 +23,31 @@ const Mesh = ({ vertexShaderCode, fragmentShaderCode, bounds, textureUrl }) => {
     [vertexShaderCode, fragmentShaderCode]
   );
 
-  const shaderData = useMemo(() => {
-    const vertexShader = `
-  void main() {
-    gl_Position = vec4( position, 1.0 );
-  }
-`;
-
-    const fragmentShader = `
-  uniform float u_time;
-  uniform vec2 u_resolution;
-  uniform vec2 u_mouse;
-
-
-  void main() {
-    vec2 st = gl_FragCoord.xy/u_resolution.xy;
-    st.y += sin(u_time) * 0.05;
-    vec2 mouse = (u_mouse + 1.0) / 2.0;
-    gl_FragColor=vec4(st.x, st.y, (mouse.x + mouse.y) / 2.0, 1.0);
-  }
-`;
-
-    const uniforms = {
+  const uniforms = useMemo(
+    () => ({
       u_time: { value: 0 },
+      u_aspect: { value: 1 },
       u_resolution: { value: new Vector2() },
       u_mouse: { value: mouse },
       u_texture: { value: texture },
-    };
+    }),
+    [mouse, texture]
+  );
 
-    return {
-      vertexShader,
-      fragmentShader,
-      uniforms,
-    };
-  }, [mouse, texture]);
+  useEffect(() => void (uniforms.u_aspect.value = aspect), [aspect, uniforms]);
 
   useEffect(() => {
-    if (textureUrl)
-      shaderData.uniforms.u_texture.value = loadTexture(textureUrl);
-  }, [textureUrl, shaderData]);
-
-  useEffect(() => {
-    shaderData.uniforms.u_resolution.value.x = bounds.width;
-    shaderData.uniforms.u_resolution.value.y = bounds.height;
-  }, [bounds, shaderData]);
+    if (textureUrl) uniforms.u_texture.value = loadTexture(textureUrl);
+  }, [textureUrl, uniforms]);
 
   useFrame(() => {
-    shaderData.uniforms.u_time.value += 0.05;
+    uniforms.u_time.value += clock.elapsedTime / 1000; //miliseconds
   });
 
   return (
     <mesh>
       <planeBufferGeometry attach="geometry" args={[2, 2]} />
-      <shaderMaterial ref={ref} attach="material" {...shaderData} />
+      <shaderMaterial ref={ref} attach="material" uniforms={uniforms} />
     </mesh>
   );
 };
@@ -90,16 +60,21 @@ const MainContainer = styled.div`
   grid-row-gap: 2vh;
 `;
 
-const VERTEX_SHADER = /* glsl */`void main() {
-  gl_Position = vec4( position, 1.0 );
+const VERTEX_SHADER = /* glsl */ `varying vec2 vUv;
+
+void main() {
+  vUv = uv;
+  gl_Position = vec4(position, 1.0 );
 }`;
-const FRAGMENT_SHADER = /* glsl */`uniform float u_time;
-uniform vec2 u_resolution;
+const FRAGMENT_SHADER = /* glsl */ `varying vec2 vUv;
+uniform float u_time;
+uniform float u_aspect;
 uniform vec2 u_mouse;
 uniform sampler2D u_texture;
 
 void main() {
-  vec2 uv = (gl_FragCoord.xy - 0.5*u_resolution) / u_resolution.y; // 0-1
+  vec2 uv = vUv - 0.5;
+  uv.x *= u_aspect;
   vec2 mouse = (u_mouse + 1.0) / 2.0; // 0-1
 
   uv *= 1.0; // control zoom 
@@ -114,7 +89,7 @@ void main() {
   float pct = distance(uv, center);
   col += smoothstep(r, r-0.001, pct);
 
-  // col += texture2D(u_texture, (gl_FragCoord.xy / u_resolution)).rgb; // texture example
+  // col += texture2D(u_texture, vUv).rgb; // texture example
 
   gl_FragColor=vec4(col, 1.0);
 }`;
@@ -170,15 +145,16 @@ const CustomContainer = styled.div`
 
 const Xtra = ({ handleUpload }) => (
   <CustomContainer>
-    <Text>
-      A simple shader code editor.
-    </Text>
-    <ButtonImageUpload style={{ marginLeft: "0.5em" }} text="Upload texture" handleUpload={handleUpload} />
+    <Text>A simple shader code editor.</Text>
+    <ButtonImageUpload
+      style={{ marginLeft: "0.5em" }}
+      text="Upload texture"
+      handleUpload={handleUpload}
+    />
   </CustomContainer>
 );
 
 export const ShaderEditor = () => {
-  const [ref, bounds] = useMeasure({ polyfill: ResizeObserver });
   const [textureUrl, setTextureUrl] = useState();
   const handleUpload = (e) => {
     const url = URL.createObjectURL(e.target.files[0]);
@@ -191,13 +167,11 @@ export const ShaderEditor = () => {
     <MainContainer>
       <CanvasContainer
         xtra={<Xtra handleUpload={handleUpload} />}
-        measure={ref}
         style={{ width: "auto", gridRow: "1/3", gridColumn: "1/2" }}
       >
         <Mesh
           vertexShaderCode={vertexShaderCode}
           fragmentShaderCode={fragmentShaderCode}
-          bounds={bounds}
           textureUrl={textureUrl}
         />
       </CanvasContainer>
