@@ -108,7 +108,6 @@ const Mesh = () => {
       <bufferGeometry
         attach="geometry"
         onUpdate={(self) => {
-          console.log(self);
           self.computeFaceNormals();
           self.computeVertexNormals();
         }}
