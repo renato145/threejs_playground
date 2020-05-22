@@ -75,7 +75,7 @@ const Mesh = () => {
   }, []);
 
   const shaderData = useMemo(() => {
-    const vertexShader = `
+    const vertexShader = /*glsl*/`
   varying float z;
 
   void main() {
@@ -85,7 +85,7 @@ const Mesh = () => {
   }
 `;
 
-    const fragmentShader = `
+    const fragmentShader = /*glsl*/`
   varying float z;
   
   void main() {

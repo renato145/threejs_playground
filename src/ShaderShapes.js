@@ -9,13 +9,13 @@ const Mesh = ({ bounds }) => {
   const { mouse } = useThree();
 
   const shaderData = useMemo(() => {
-    const vertexShader = `
+    const vertexShader = /*glsl*/`
   void main() {
     gl_Position = vec4( position, 1.0 );
   }
 `;
 
-    const fragmentShader = `
+    const fragmentShader = /*glsl*/`
   uniform float u_time;
   uniform vec2 u_resolution;
   uniform vec2 u_mouse;

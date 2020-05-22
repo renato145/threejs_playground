@@ -9,7 +9,7 @@ const Mesh = () => {
   const boxRef = useRef();
 
   const shaderData = useMemo(() => {
-    const vertexShader = `
+    const vertexShader = /*glsl*/`
   attribute float displacement;
   varying float z;
 
@@ -23,7 +23,7 @@ const Mesh = () => {
   }
 `;
 
-    const fragmentShader = `
+    const fragmentShader = /*glsl*/`
   uniform float delta;
   varying float z;
   
