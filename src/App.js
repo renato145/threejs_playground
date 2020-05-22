@@ -18,6 +18,7 @@ import { ShaderShapes } from "./ShaderShapes";
 import { ShaderTexture } from "./ShaderTexture";
 import { FractalKoch } from "./FractalKoch";
 import { FractalMandelBrot } from "./FractalMandelBrot";
+import { ExplodingSphere } from "./ExplodingSphere";
 import { ShaderEditor } from "./ShaderEditor";
 import "./App.css";
 
@@ -145,6 +146,9 @@ const AppContent = () => {
           <NLink to={`/FractalMandelBrot`}>FractalMandelBrot</NLink>
         </div>
         <div>
+          <NLink to={`/ExplodingSphere`}>ExplodingSphere</NLink>
+        </div>
+        <div>
           <NLink to={`/ShaderEditor`}>ShaderEditor</NLink>
         </div>
         <div>
@@ -192,6 +196,9 @@ const AppContent = () => {
         </Route>
         <Route path={`/FractalMandelBrot`}>
           <FractalMandelBrot />
+        </Route>
+        <Route path={`/ExplodingSphere`}>
+          <ExplodingSphere />
         </Route>
         <Route path={`/ShaderEditor`}>
           <ShaderEditor />
