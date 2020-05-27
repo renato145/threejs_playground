@@ -127,7 +127,7 @@ const Xtra = () => (
   <Text>
     A more complex test (inspired by{" "}
     {
-      <a href="https://www.shadertoy.com/view/MdSXzz" target="_black">
+      <a className="font-semibold" href="https://www.shadertoy.com/view/MdSXzz" target="_black">
         this work
       </a>
     }

@@ -3,25 +3,24 @@ import { Vector2 } from "three";
 import useMeasure from "react-use-measure";
 import { ResizeObserver } from "@juggle/resize-observer";
 import { useThree, useFrame } from "react-three-fiber";
-import styled from "styled-components";
 import { CanvasContainer } from "../components/CanvasContainer";
 import { Text } from "../components/CanvasContainer";
 import exampleTexture from "./textures/texture1.png";
 import { ButtonImageUpload } from "../components/ButtonImageUpload";
-import { loadTexture } from '../utils';
+import { loadTexture } from "../utils";
 
 const Mesh = ({ bounds, textureUrl }) => {
   const { mouse } = useThree();
   const texture = useMemo(() => loadTexture(exampleTexture), []);
 
   const shaderData = useMemo(() => {
-    const vertexShader = /*glsl*/`
+    const vertexShader = /*glsl*/ `
   void main() {
     gl_Position = vec4( position, 1.0 );
   }
 `;
 
-    const fragmentShader = /*glsl*/`
+    const fragmentShader = /*glsl*/ `
   uniform float u_time;
   uniform vec2 u_resolution;
   uniform vec2 u_mouse;
@@ -86,7 +85,8 @@ const Mesh = ({ bounds, textureUrl }) => {
   }, [mouse, texture]);
 
   useEffect(() => {
-    if (textureUrl) shaderData.uniforms.u_texture.value = loadTexture(textureUrl);
+    if (textureUrl)
+      shaderData.uniforms.u_texture.value = loadTexture(textureUrl);
   }, [textureUrl, shaderData]);
 
   useEffect(() => {
@@ -100,27 +100,19 @@ const Mesh = ({ bounds, textureUrl }) => {
 
   return (
     <mesh>
-      <planeBufferGeometry  attach="geometry" args={[2, 2]} />
+      <planeBufferGeometry attach="geometry" args={[2, 2]} />
       <shaderMaterial attach="material" {...shaderData} />
     </mesh>
   );
 };
 
-const CustomContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  flex-flow: row;
-  justify-content: center;
-  padding-top: 0.5rem;
-`;
-
 const Xtra = ({ handleUpload }) => (
-  <CustomContainer>
-    <Text>
-      Example of a Koch Snowflake fractal pattern, try a custom texture:
-    </Text>
-    <ButtonImageUpload style={{ marginLeft: "0.5em" }} text="Upload texture" handleUpload={handleUpload} />
-  </CustomContainer>
+  <Text>
+    Example of a Koch Snowflake fractal pattern, try a custom texture:
+    <ButtonImageUpload handleUpload={handleUpload}>
+      Upload texture
+    </ButtonImageUpload>
+  </Text>
 );
 
 export const FractalKoch = () => {

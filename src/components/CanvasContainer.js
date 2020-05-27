@@ -2,8 +2,8 @@ import React from "react";
 import { Canvas } from "react-three-fiber";
 import { Stats } from "drei";
 
-export const Text = ({ children, ...props }) => (
-  <div className="text-center text-lg pt-2" {...props}>
+export const Text = ({ children, tw="", ...props }) => (
+  <div className={`text-center align-middle text-lg ${tw}`} {...props}>
     <p>{children}</p>
   </div>
 );
@@ -16,8 +16,8 @@ export const CanvasContainer = ({
   ...props
 }) => {
   return (
-    <div className="w-full flex flex-row">
-      <div ref={measure} className="" {...props}>
+    <div className="w-full h-screen flex flex-col">
+      <div ref={measure} className="flex-auto" {...props}>
         <Canvas>
           <ambientLight />
           <pointLight position={[10, 10, 10]} />
@@ -25,7 +25,7 @@ export const CanvasContainer = ({
           <Stats />
         </Canvas>
       </div>
-      <div className="">
+      <div className="py-2">
         {xtra && xtra}
         {text && <Text>{text}</Text>}
       </div>

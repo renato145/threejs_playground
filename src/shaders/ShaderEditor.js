@@ -3,7 +3,6 @@ import Editor from "react-simple-code-editor";
 import Highlight, { defaultProps } from "prism-react-renderer";
 import { Vector2 } from "three";
 import { useThree, useFrame, useUpdate } from "react-three-fiber";
-import styled from "styled-components";
 import { CanvasContainer, Text } from "../components/CanvasContainer";
 import exampleTexture from "./textures/texture1.png";
 import { loadTexture } from "../utils";
@@ -51,14 +50,6 @@ const Mesh = ({ vertexShaderCode, fragmentShaderCode, bounds, textureUrl }) => {
     </mesh>
   );
 };
-
-const MainContainer = styled.div`
-  width: 100vw;
-  display: grid;
-  grid-template-columns: 50vw 50vw;
-  grid-template-rows: 25vh 73vh;
-  grid-row-gap: 2vh;
-`;
 
 const VERTEX_SHADER = /* glsl */ `varying vec2 vUv;
 
@@ -135,23 +126,13 @@ const CodeEditor = ({ code, setCode, ...style }) => {
   );
 };
 
-const CustomContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  flex-flow: row;
-  justify-content: center;
-  padding-top: 0.5rem;
-`;
-
 const Xtra = ({ handleUpload }) => (
-  <CustomContainer>
-    <Text>A simple shader code editor.</Text>
-    <ButtonImageUpload
-      style={{ marginLeft: "0.5em" }}
-      text="Upload texture"
-      handleUpload={handleUpload}
-    />
-  </CustomContainer>
+  <Text>
+    A simple shader code editor.
+    <ButtonImageUpload handleUpload={handleUpload}>
+      Upload texture
+    </ButtonImageUpload>
+  </Text>
 );
 
 export const ShaderEditor = () => {
@@ -164,27 +145,27 @@ export const ShaderEditor = () => {
   const [fragmentShaderCode, setFragmentShaderCode] = useState(FRAGMENT_SHADER);
 
   return (
-    <MainContainer>
-      <CanvasContainer
-        xtra={<Xtra handleUpload={handleUpload} />}
-        style={{ width: "auto", gridRow: "1/3", gridColumn: "1/2" }}
-      >
-        <Mesh
-          vertexShaderCode={vertexShaderCode}
-          fragmentShaderCode={fragmentShaderCode}
-          textureUrl={textureUrl}
-        />
-      </CanvasContainer>
-      <CodeEditor
-        code={vertexShaderCode}
-        setCode={setVertexShaderCode}
-        style={{ gridRow: "1/2", gridColumn: "2/3" }}
-      />
-      <CodeEditor
-        code={fragmentShaderCode}
-        setCode={setFragmentShaderCode}
-        style={{ gridRow: "2/3", gridColumn: "2/3" }}
-      />
-    </MainContainer>
+    <div className="w-full flex flex-row flex-wrap">
+      <div className="flex-1">
+        <CanvasContainer xtra={<Xtra handleUpload={handleUpload} />}>
+          <Mesh
+            vertexShaderCode={vertexShaderCode}
+            fragmentShaderCode={fragmentShaderCode}
+            textureUrl={textureUrl}
+          />
+        </CanvasContainer>
+      </div>
+      <div className="flex-none flex flex-col justify-center w-1/2 lg:w-1/3">
+        <div className="mb-2">
+          <CodeEditor code={vertexShaderCode} setCode={setVertexShaderCode} />
+        </div>
+        <div className="">
+          <CodeEditor
+            code={fragmentShaderCode}
+            setCode={setFragmentShaderCode}
+          />
+        </div>
+      </div>
+    </div>
   );
 };
