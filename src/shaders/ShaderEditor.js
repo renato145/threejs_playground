@@ -85,7 +85,7 @@ void main() {
   gl_FragColor=vec4(col, 1.0);
 }`;
 
-const CodeEditor = ({ code, setCode, ...style }) => {
+const CodeEditor = ({ code, setCode, className = "", ...style }) => {
   const highlight = useCallback(
     (code) => (
       <Highlight {...defaultProps} theme={theme} code={code} language="jsx">
@@ -114,6 +114,7 @@ const CodeEditor = ({ code, setCode, ...style }) => {
       highlight={highlight}
       padding={10}
       textareaClassName="editor-text-area"
+      className={className}
       style={{
         fontSize: "0.8em",
         overflow: "auto",
@@ -145,8 +146,8 @@ export const ShaderEditor = () => {
   const [fragmentShaderCode, setFragmentShaderCode] = useState(FRAGMENT_SHADER);
 
   return (
-    <div className="w-full flex flex-row flex-wrap">
-      <div className="flex-1">
+    <div className="w-full grid grid-cols-6 grid-flow-row">
+      <div className="row-span-2 col-span-3 xl:col-span-4">
         <CanvasContainer xtra={<Xtra handleUpload={handleUpload} />}>
           <Mesh
             vertexShaderCode={vertexShaderCode}
@@ -155,16 +156,19 @@ export const ShaderEditor = () => {
           />
         </CanvasContainer>
       </div>
-      <div className="flex-none flex flex-col justify-center w-1/2 lg:w-1/3">
-        <div className="mb-2">
-          <CodeEditor code={vertexShaderCode} setCode={setVertexShaderCode} />
-        </div>
-        <div className="">
-          <CodeEditor
-            code={fragmentShaderCode}
-            setCode={setFragmentShaderCode}
-          />
-        </div>
+      <div className="col-span-3 xl:col-span-2">
+        <CodeEditor
+          code={vertexShaderCode}
+          className="h-screen-49"
+          setCode={setVertexShaderCode}
+        />
+      </div>
+      <div className="col-span-3 xl:col-span-2">
+        <CodeEditor
+          code={fragmentShaderCode}
+          className="h-screen-49"
+          setCode={setFragmentShaderCode}
+        />
       </div>
     </div>
   );

@@ -6894,6 +6894,14 @@ button:active {
   height: 100vh;
 }
 
+.h-screen-49 {
+  height: 49vh;
+}
+
+.h-screen-50 {
+  height: 50vh;
+}
+
 .text-xs {
   font-size: 0.75rem;
 }
@@ -24713,6 +24721,14 @@ button:active {
 
   .sm\:h-screen {
     height: 100vh;
+  }
+
+  .sm\:h-screen-49 {
+    height: 49vh;
+  }
+
+  .sm\:h-screen-50 {
+    height: 50vh;
   }
 
   .sm\:text-xs {
@@ -42537,6 +42553,14 @@ button:active {
     height: 100vh;
   }
 
+  .md\:h-screen-49 {
+    height: 49vh;
+  }
+
+  .md\:h-screen-50 {
+    height: 50vh;
+  }
+
   .md\:text-xs {
     font-size: 0.75rem;
   }
@@ -60359,6 +60383,14 @@ button:active {
     height: 100vh;
   }
 
+  .lg\:h-screen-49 {
+    height: 49vh;
+  }
+
+  .lg\:h-screen-50 {
+    height: 50vh;
+  }
+
   .lg\:text-xs {
     font-size: 0.75rem;
   }
@@ -78179,6 +78211,14 @@ button:active {
 
   .xl\:h-screen {
     height: 100vh;
+  }
+
+  .xl\:h-screen-49 {
+    height: 49vh;
+  }
+
+  .xl\:h-screen-50 {
+    height: 50vh;
   }
 
   .xl\:text-xs {
