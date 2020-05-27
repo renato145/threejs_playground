@@ -1,7 +1,7 @@
 @tailwind base;
 
 body {
-  @apply bg-black text-gray-100 m-0 font-mono;
+  @apply bg-black text-gray-100 m-0 font-mono antialiased;
 }
 
 h1 {
