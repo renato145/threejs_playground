@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { DoubleSide } from "three";
 import { OrbitControls } from "drei";
 import { color, extent, scaleLinear, interpolateMagma } from "d3";
-import { CanvasContainer } from "./CanvasContainer";
+import { CanvasContainer } from "../components/CanvasContainer";
 
 const M = 101,
   N = 101;
@@ -74,37 +74,8 @@ const Mesh = () => {
     return new Uint16Array(res);
   }, []);
 
-  const shaderData = useMemo(() => {
-    const vertexShader = /*glsl*/`
-  varying float z;
-
-  void main() {
-    vec3 pos = position;
-    z = 0.41 + pos.z*1.5;
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
-  }
-`;
-
-    const fragmentShader = /*glsl*/`
-  varying float z;
-  
-  void main() {
-    gl_FragColor = vec4(z, cos(z*200.0), cos(z*100.0), 1.0);
-  }
-`;
-
-    return { vertexShader, fragmentShader };
-  }, []);
-
   return (
-    <mesh
-      rotation-x={-Math.PI / 2}
-      // ref={ref}
-      scale={[4, 4, 4]}
-      // onPointerOver={() => setHover(true)}
-      // onPointerOut={() => setHover(false)}
-      // onPointerMove={e => console.log(e.unprojectedPoint)}
-    >
+    <mesh rotation-x={-Math.PI / 2} scale={[4, 4, 4]}>
       <bufferGeometry
         attach="geometry"
         onUpdate={(self) => {
@@ -131,16 +102,19 @@ const Mesh = () => {
           itemSize={1}
         />
       </bufferGeometry>
-      <shaderMaterial attach="material" {...shaderData} side={DoubleSide}  />
-
+      <meshPhongMaterial
+        attach="material"
+        side={DoubleSide}
+        vertexColors={true}
+      />
       <OrbitControls />
     </mesh>
   );
 };
 
-export const SurfaceShader = () => {
+export const SurfaceD3 = () => {
   return (
-    <CanvasContainer text='Surface plot using vertex and faces, colored with a custom fragment shader.'>
+    <CanvasContainer text="Surface plot using vertex and faces, colored with d3.">
       <Mesh />
     </CanvasContainer>
   );

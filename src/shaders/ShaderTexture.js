@@ -2,8 +2,7 @@ import React, { useMemo, useEffect } from "react";
 import { Vector2 } from "three";
 import useMeasure from "react-use-measure";
 import { ResizeObserver } from "@juggle/resize-observer";
-import { CanvasContainer, Text } from "./CanvasContainer";
-import { Link } from "./App";
+import { CanvasContainer, Text } from "../components/CanvasContainer";
 import { useThree, useFrame } from "react-three-fiber";
 
 const Mesh = ({ bounds }) => {
@@ -128,9 +127,9 @@ const Xtra = () => (
   <Text>
     A more complex test (inspired by{" "}
     {
-      <Link href="https://www.shadertoy.com/view/MdSXzz" target="_black">
+      <a href="https://www.shadertoy.com/view/MdSXzz" target="_black">
         this work
-      </Link>
+      </a>
     }
     ).
   </Text>

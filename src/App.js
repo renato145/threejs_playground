@@ -7,38 +7,31 @@ import {
   useLocation,
 } from "react-router-dom";
 import styled from "styled-components";
-import { BoxGeometry } from "./BoxGeometry";
-import { SurfaceD3 } from "./SurfaceD3";
-import { SurfaceShader } from "./SurfaceShader";
-import { TestShader } from "./TestShader";
-import { PlaneGeometry } from "./PlaneGeometry";
-import { PlaneGeometryShader } from "./PlaneGeometryShader";
-import { ShaderTemplate } from "./ShaderTemplate";
-import { ShaderShapes } from "./ShaderShapes";
-import { ShaderTexture } from "./ShaderTexture";
-import { FractalKoch } from "./FractalKoch";
-import { FractalMandelBrot } from "./FractalMandelBrot";
-import { ExplodingSphere } from "./ExplodingSphere";
-import { ShaderEditor } from "./ShaderEditor";
-import "./App.css";
+import { BoxGeometry } from "./shaders/BoxGeometry";
+import { SurfaceD3 } from "./shaders/SurfaceD3";
+import { SurfaceShader } from "./shaders/SurfaceShader";
+import { TestShader } from "./shaders/TestShader";
+import { PlaneGeometry } from "./shaders/PlaneGeometry";
+import { PlaneGeometryShader } from "./shaders/PlaneGeometryShader";
+import { ShaderTemplate } from "./shaders/ShaderTemplate";
+import { ShaderShapes } from "./shaders/ShaderShapes";
+import { ShaderTexture } from "./shaders/ShaderTexture";
+import { FractalKoch } from "./shaders/FractalKoch";
+import { FractalMandelBrot } from "./shaders/FractalMandelBrot";
+import { ExplodingSphere } from "./shaders/ExplodingSphere";
+import { ShaderEditor } from "./shaders/ShaderEditor";
+import "./index.css";
 
-const NLink = styled(NavLink).attrs((props) => ({
-  exact: true,
-}))`
-  color: #abc;
-  font-size: 1rem;
-  &.active {
-    color: #fff;
-  }
-`;
-
-export const Link = styled.a`
-  color: #abc;
-  font-size: 1rem;
-  &.active {
-    color: #fff;
-  }
-`;
+const NLink = ({ children, ...props }) => (
+  <NavLink
+    className="pb-1"
+    activeClassName="text-gray-400 hover:text-gray-400 font-bold"
+    exact
+    {...props}
+  >
+    {children}
+  </NavLink>
+);
 
 const NavBar = styled.div`
   position: absolute;
@@ -51,10 +44,6 @@ const NavBar = styled.div`
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 100;
   transition: all 0.2s ease-out;
-
-  & > div {
-    padding-bottom: 0.5rem;
-  }
 
   ${({ isHome }) =>
     !isHome &&
@@ -70,95 +59,49 @@ const NavBar = styled.div`
     }`}
 `;
 
-const Text = styled.div`
-  color: #fff;
-  font-size: 2em;
-  text-align: center;
-  padding-top: 2em;
-`;
-
-const SubText = styled.div`
-  color: #fff;
-  font-size: 1.2em;
-  text-align: center;
-  padding-top: 0.5em;
-`;
-
 const HomeContent = () => (
-  <>
-    <Text>Threejs playground</Text>
-    <SubText style={{paddingTop: "3em"}}>
+  <div className="pt-10 text-center">
+    <h1>Threejs Playground</h1>
+    <p className="mt-10">
       Made by: Renato Hermoza, check the{" "}
-      <Link
+      <a
         href="https://github.com/renato145/threejs_playground/"
         target="_black"
       >
         source code
-      </Link>
+      </a>
       .
-    </SubText>
-  </>
+    </p>
+  </div>
 );
 
 const AppContent = () => {
   const location = useLocation();
-  const isHome = location.pathname === '/';
+  const isHome = location.pathname === "/";
 
   return (
     <>
       <NavBar isHome={isHome}>
-        <div>
-          <NLink to={`/`}>Home</NLink>
-        </div>
-        <div>
-          <NLink to={`/BoxGeometry`}>BoxGeometry</NLink>
-        </div>
-        <div>
-          <NLink to={`/SurfaceD3`}>SurfaceD3</NLink>
-        </div>
-        <div>
-          <NLink to={`/SurfaceShader`}>SurfaceShader</NLink>
-        </div>
-        <div>
-          <NLink to={`/TestShader`}>TestShader</NLink>
-        </div>
-        <div>
-          <NLink to={`/PlaneGeometry`}>PlaneGeometry</NLink>
-        </div>
-        <div>
-          <NLink to={`/PlaneGeometryShader`}>
-            PlaneGeometryShader
-          </NLink>
-        </div>
-        <div>
-          <NLink to={`/ShaderTemplate`}>ShaderTemplate</NLink>
-        </div>
-        <div>
-          <NLink to={`/ShaderShapes`}>ShaderShapes</NLink>
-        </div>
-        <div>
-          <NLink to={`/ShaderTexture`}>ShaderTexture</NLink>
-        </div>
-        <div>
-          <NLink to={`/FractalKoch`}>FractalKoch</NLink>
-        </div>
-        <div>
-          <NLink to={`/FractalMandelBrot`}>FractalMandelBrot</NLink>
-        </div>
-        <div>
-          <NLink to={`/ExplodingSphere`}>ExplodingSphere</NLink>
-        </div>
-        <div>
-          <NLink to={`/ShaderEditor`}>ShaderEditor</NLink>
-        </div>
-        <div>
-          <Link
-            href="https://github.com/renato145/threejs_playground/"
-            target="_black"
-          >
-            Source Code
-          </Link>
-        </div>
+        <NLink to={`/`}>Home</NLink>
+        <NLink to={`/BoxGeometry`}>BoxGeometry</NLink>
+        <NLink to={`/SurfaceD3`}>SurfaceD3</NLink>
+        <NLink to={`/SurfaceShader`}>SurfaceShader</NLink>
+        <NLink to={`/TestShader`}>TestShader</NLink>
+        <NLink to={`/PlaneGeometry`}>PlaneGeometry</NLink>
+        <NLink to={`/PlaneGeometryShader`}>PlaneGeometryShader</NLink>
+        <NLink to={`/ShaderTemplate`}>ShaderTemplate</NLink>
+        <NLink to={`/ShaderShapes`}>ShaderShapes</NLink>
+        <NLink to={`/ShaderTexture`}>ShaderTexture</NLink>
+        <NLink to={`/FractalKoch`}>FractalKoch</NLink>
+        <NLink to={`/FractalMandelBrot`}>FractalMandelBrot</NLink>
+        <NLink to={`/ExplodingSphere`}>ExplodingSphere</NLink>
+        <NLink to={`/ShaderEditor`}>ShaderEditor</NLink>
+        <a
+          href="https://github.com/renato145/threejs_playground/"
+          target="_black"
+        >
+          Source Code
+        </a>
       </NavBar>
       <Switch>
         <Route exact path={`/`}>
@@ -209,7 +152,7 @@ const AppContent = () => {
 };
 
 const App = () => (
-  <HashRouter basename='/'>
+  <HashRouter basename="/">
     <AppContent />
   </HashRouter>
 );

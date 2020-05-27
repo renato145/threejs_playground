@@ -4,11 +4,11 @@ import Highlight, { defaultProps } from "prism-react-renderer";
 import { Vector2 } from "three";
 import { useThree, useFrame, useUpdate } from "react-three-fiber";
 import styled from "styled-components";
-import { CanvasContainer, Text } from "./CanvasContainer";
+import { CanvasContainer, Text } from "../components/CanvasContainer";
 import exampleTexture from "./textures/texture1.png";
-import { loadTexture } from "./utils";
+import { loadTexture } from "../utils";
 import theme from "prism-react-renderer/themes/nightOwl";
-import { ButtonImageUpload } from "./ButtonImageUpload";
+import { ButtonImageUpload } from "../components/ButtonImageUpload";
 import "./ShaderEditor.css";
 
 const Mesh = ({ vertexShaderCode, fragmentShaderCode, bounds, textureUrl }) => {

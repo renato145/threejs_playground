@@ -4,11 +4,11 @@ import useMeasure from "react-use-measure";
 import { ResizeObserver } from "@juggle/resize-observer";
 import { useThree, useFrame } from "react-three-fiber";
 import styled from "styled-components";
-import { CanvasContainer } from "./CanvasContainer";
-import { Text } from "./CanvasContainer";
+import { CanvasContainer } from "../components/CanvasContainer";
+import { Text } from "../components/CanvasContainer";
 import exampleTexture from "./textures/texture1.png";
-import { ButtonImageUpload } from "./ButtonImageUpload";
-import { loadTexture } from './utils';
+import { ButtonImageUpload } from "../components/ButtonImageUpload";
+import { loadTexture } from '../utils';
 
 const Mesh = ({ bounds, textureUrl }) => {
   const { mouse } = useThree();

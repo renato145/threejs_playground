@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { CanvasContainer } from "./CanvasContainer";
+import { CanvasContainer } from "../components/CanvasContainer";
 import { useThree, useFrame } from "react-three-fiber";
 
 const Mesh = () => {

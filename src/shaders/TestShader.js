@@ -1,7 +1,7 @@
 import React, { useRef, useState, useMemo, useCallback } from "react";
 import { useFrame } from "react-three-fiber";
 import { OrbitControls } from "drei";
-import { CanvasContainer } from "./CanvasContainer";
+import { CanvasContainer } from "../components/CanvasContainer";
 import { Controls, useControl } from 'react-three-gui';
 
 const Mesh = () => {

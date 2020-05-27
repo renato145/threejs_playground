@@ -3,7 +3,7 @@ import { Vector2 } from "three";
 import useMeasure from "react-use-measure";
 import { ResizeObserver } from "@juggle/resize-observer";
 import { useThree, useFrame } from "react-three-fiber";
-import { CanvasContainer } from "./CanvasContainer";
+import { CanvasContainer } from "../components/CanvasContainer";
 import { StandardEffects } from "drei";
 
 const Mesh = ({ bounds }) => {

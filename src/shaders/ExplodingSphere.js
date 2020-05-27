@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { CanvasContainer } from "./CanvasContainer";
+import { CanvasContainer } from "../components/CanvasContainer";
 import { useThree, useFrame, useResource } from "react-three-fiber";
 import { DoubleSide, Vector3 } from "three";
 import { OrbitControls } from 'drei';

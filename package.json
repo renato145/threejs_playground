@@ -24,7 +24,9 @@
     "three": "^0.116.1"
   },
   "scripts": {
+    "prestart": "tailwindcss build ./src/index.tailwind.css -c ./tailwind.config.js -o ./src/index.css",
     "start": "react-scripts start",
+    "prebuild": "NODE_ENV=production tailwindcss build ./src/index.tailwind.css -c ./tailwind.config.js -o ./src/index.css",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -47,6 +49,7 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^2.2.0"
+    "gh-pages": "^2.2.0",
+    "tailwindcss": "^1.4.6"
   }
 }

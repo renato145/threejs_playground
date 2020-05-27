@@ -2,7 +2,7 @@ import React, { useMemo, useEffect } from "react";
 import { Vector2 } from "three";
 import useMeasure from "react-use-measure";
 import { ResizeObserver } from "@juggle/resize-observer";
-import { CanvasContainer } from "./CanvasContainer";
+import { CanvasContainer } from "../components/CanvasContainer";
 import { useThree, useFrame } from "react-three-fiber";
 
 const Mesh = ({ bounds }) => {
