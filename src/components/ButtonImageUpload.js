@@ -8,7 +8,7 @@ export const ButtonImageUpload = ({
   const ref = useRef();
 
   return (
-    <div className="inline text-sm">
+    <div className="text-sm ml-2">
       <input
         ref={ref}
         type="file"

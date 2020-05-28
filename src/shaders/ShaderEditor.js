@@ -3,7 +3,7 @@ import Editor from "react-simple-code-editor";
 import Highlight, { defaultProps } from "prism-react-renderer";
 import { Vector2 } from "three";
 import { useThree, useFrame, useUpdate } from "react-three-fiber";
-import { CanvasContainer, Text } from "../components/CanvasContainer";
+import { CanvasContainer } from "../components/CanvasContainer";
 import exampleTexture from "./textures/texture1.png";
 import { loadTexture } from "../utils";
 import theme from "prism-react-renderer/themes/nightOwl";
@@ -127,15 +127,6 @@ const CodeEditor = ({ code, setCode, className = "", ...style }) => {
   );
 };
 
-const Xtra = ({ handleUpload }) => (
-  <Text>
-    A simple shader code editor.
-    <ButtonImageUpload handleUpload={handleUpload}>
-      Upload texture
-    </ButtonImageUpload>
-  </Text>
-);
-
 export const ShaderEditor = () => {
   const [textureUrl, setTextureUrl] = useState();
   const handleUpload = (e) => {
@@ -148,7 +139,14 @@ export const ShaderEditor = () => {
   return (
     <div className="w-full grid grid-cols-6 grid-flow-row">
       <div className="row-span-2 col-span-3 xl:col-span-4">
-        <CanvasContainer xtra={<Xtra handleUpload={handleUpload} />}>
+        <CanvasContainer
+          text="A simple shader code editor"
+          xtra={
+            <ButtonImageUpload handleUpload={handleUpload}>
+              Upload texture
+            </ButtonImageUpload>
+          }
+        >
           <Mesh
             vertexShaderCode={vertexShaderCode}
             fragmentShaderCode={fragmentShaderCode}

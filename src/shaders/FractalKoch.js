@@ -4,7 +4,6 @@ import useMeasure from "react-use-measure";
 import { ResizeObserver } from "@juggle/resize-observer";
 import { useThree, useFrame } from "react-three-fiber";
 import { CanvasContainer } from "../components/CanvasContainer";
-import { Text } from "../components/CanvasContainer";
 import exampleTexture from "./textures/texture1.png";
 import { ButtonImageUpload } from "../components/ButtonImageUpload";
 import { loadTexture } from "../utils";
@@ -106,15 +105,6 @@ const Mesh = ({ bounds, textureUrl }) => {
   );
 };
 
-const Xtra = ({ handleUpload }) => (
-  <Text>
-    Example of a Koch Snowflake fractal pattern, try a custom texture:
-    <ButtonImageUpload handleUpload={handleUpload}>
-      Upload texture
-    </ButtonImageUpload>
-  </Text>
-);
-
 export const FractalKoch = () => {
   const [ref, bounds] = useMeasure({ polyfill: ResizeObserver });
   const [textureUrl, setTextureUrl] = useState();
@@ -124,7 +114,15 @@ export const FractalKoch = () => {
   };
 
   return (
-    <CanvasContainer xtra={<Xtra handleUpload={handleUpload} />} measure={ref}>
+    <CanvasContainer
+      text="Example of a Koch Snowflake fractal pattern, try a custom texture:"
+      xtra={
+        <ButtonImageUpload handleUpload={handleUpload}>
+          Upload texture
+        </ButtonImageUpload>
+      }
+      measure={ref}
+    >
       <Mesh bounds={bounds} textureUrl={textureUrl} />
     </CanvasContainer>
   );

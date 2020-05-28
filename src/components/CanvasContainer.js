@@ -3,7 +3,7 @@ import { Canvas } from "react-three-fiber";
 import { Stats } from "drei";
 
 export const Text = ({ children, tw="", ...props }) => (
-  <div className={`text-center align-middle text-lg ${tw}`} {...props}>
+  <div className={`text-center lg:text-lg ${tw}`} {...props}>
     <p>{children}</p>
   </div>
 );
@@ -25,9 +25,9 @@ export const CanvasContainer = ({
           <Stats />
         </Canvas>
       </div>
-      <div className="py-2">
-        {xtra && xtra}
+      <div className="py-2 flex justify-center items-center">
         {text && <Text>{text}</Text>}
+        {xtra && xtra}
       </div>
     </div>
   );
