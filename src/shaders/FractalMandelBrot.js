@@ -1,29 +1,25 @@
-import React, { useMemo, useEffect, Suspense } from "react";
-import { Vector2 } from "three";
-import useMeasure from "react-use-measure";
-import { ResizeObserver } from "@juggle/resize-observer";
-import { useThree, useFrame } from "react-three-fiber";
-import { CanvasContainer } from "../components/CanvasContainer";
-import { StandardEffects } from "drei";
+import React from "react";
+import { ShaderEditorLayout } from "../components/ShaderEditorLayout";
 
-const Mesh = ({ bounds }) => {
-  const { mouse } = useThree();
+const VERTEX_SHADER = /*glsl*/`
+  varying vec2 vUv;
 
-  const shaderData = useMemo(() => {
-    const vertexShader = /*glsl*/`
   void main() {
-    gl_Position = vec4(position, 1.0);
+    vUv = uv;
+    gl_Position = vec4(position, 1.0 );
   }
 `;
 
-    const fragmentShader = /*glsl*/`
+const FRAGMENT_SHADER = /*glsl*/`
+  varying vec2 vUv;
   uniform float u_time;
-  uniform vec2 u_resolution;
+  uniform float u_aspect;
   uniform vec2 u_mouse;
-  varying vec3 pos;
+  uniform sampler2D u_texture;
 
   void main() {
-    vec2 uv = (gl_FragCoord.xy - 0.5*u_resolution) / u_resolution.y;
+    vec2 uv = vUv - 0.5;
+    uv.x *= u_aspect;
     vec2 mouse = (u_mouse + 1.0) / 2.0;
     float zoom = pow(10.0, 5.0 * (0.1 - mouse.y));
 
@@ -49,46 +45,21 @@ const Mesh = ({ bounds }) => {
 
     vec3 col = vec3(f);
     vec2 t = vec2(sin(u_time*0.1), cos(u_time*0.15))*0.5;
-    col.rb += gl_FragCoord.xy / u_resolution * 0.5 + t;
+    col.rb += vUv * 0.5 + t;
     gl_FragColor=vec4(col, 1.0);
   }
 `;
 
-    const uniforms = {
-      u_time: { value: 0 },
-      u_resolution: { value: new Vector2() },
-      u_mouse: { value: mouse },
-    };
-
-    return { vertexShader, fragmentShader, uniforms };
-  }, [mouse]);
-
-  useEffect(() => {
-    shaderData.uniforms.u_resolution.value.x = bounds.width;
-    shaderData.uniforms.u_resolution.value.y = bounds.height;
-  }, [bounds, shaderData]);
-
-  useFrame(() => {
-    shaderData.uniforms.u_time.value += 0.05;
-  });
-
-  return (
-    <mesh>
-      <planeBufferGeometry attach="geometry" args={[2, 2]} />
-      <shaderMaterial attach="material" {...shaderData} />
-    </mesh>
-  );
-};
 
 export const FractalMandelBrot = () => {
-  const [ref, bounds] = useMeasure({ polyfill: ResizeObserver });
-
   return (
-    <CanvasContainer text="Example of a MandelBrot fractal pattern." measure={ref}>
-      <Mesh bounds={bounds} />
-      <Suspense fallback={null}>
-        <StandardEffects bloom={false} ao={false} smaa={true} />
-      </Suspense>
-    </CanvasContainer>
+    <ShaderEditorLayout
+      description="Example of a MandelBrot fractal pattern."
+      textureEnable={false}
+      vertexShader={VERTEX_SHADER}
+      fragmentShader={FRAGMENT_SHADER}
+    >
+      <planeBufferGeometry attach="geometry" args={[2, 2]} />
+    </ShaderEditorLayout>
   );
 };
