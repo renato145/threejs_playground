@@ -103,6 +103,7 @@ export const ShaderEditorLayout = ({
   description,
   vertexShader,
   fragmentShader,
+  xtra,
   materialSide=FrontSide,
   textureEnable = true,
   ...props
@@ -115,18 +116,24 @@ export const ShaderEditorLayout = ({
   const [vertexShaderCode, setVertexShaderCode] = useState(vertexShader);
   const [fragmentShaderCode, setFragmentShaderCode] = useState(fragmentShader);
 
+  const xtra_content = useMemo(() => {
+    if (!xtra && !textureEnable) return false;
+    return (
+      <>
+        {xtra}
+        <ButtonImageUpload handleUpload={handleUpload}>
+          Upload texture
+        </ButtonImageUpload>
+      </>
+    );
+  }, [textureEnable, xtra]);
+
   return (
     <div className="w-full grid grid-cols-6 grid-flow-row">
       <div className="row-span-2 col-span-3 xl:col-span-4">
         <CanvasContainer
           text={description}
-          xtra={
-            textureEnable ? (
-              <ButtonImageUpload handleUpload={handleUpload}>
-                Upload texture
-              </ButtonImageUpload>
-            ) : undefined
-          }
+          xtra={xtra_content}
         >
           <Mesh
             vertexShaderCode={vertexShaderCode}

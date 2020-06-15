@@ -10,7 +10,7 @@ import styled from "styled-components";
 import { BoxGeometry } from "./shaders/BoxGeometry";
 import { SurfaceD3 } from "./shaders/SurfaceD3";
 import { SurfaceShader } from "./shaders/SurfaceShader";
-import { TestShader } from "./shaders/TestShader";
+import { CubeShader } from "./shaders/CubeShader";
 import { PlaneGeometry } from "./shaders/PlaneGeometry";
 import { PlaneGeometryShader } from "./shaders/PlaneGeometryShader";
 import { ShaderTemplate } from "./shaders/ShaderTemplate";
@@ -86,7 +86,7 @@ const AppContent = () => {
         <NLink to={`/BoxGeometry`}>BoxGeometry</NLink>
         <NLink to={`/SurfaceD3`}>SurfaceD3</NLink>
         <NLink to={`/SurfaceShader`}>SurfaceShader</NLink>
-        <NLink to={`/TestShader`}>TestShader</NLink>
+        <NLink to={`/CubeShader`}>CubeShader</NLink>
         <NLink to={`/PlaneGeometry`}>PlaneGeometry</NLink>
         <NLink to={`/PlaneGeometryShader`}>PlaneGeometryShader</NLink>
         <NLink to={`/ShaderTemplate`}>ShaderTemplate</NLink>
@@ -116,8 +116,8 @@ const AppContent = () => {
         <Route path={`/SurfaceShader`}>
           <SurfaceShader />
         </Route>
-        <Route path={`/TestShader`}>
-          <TestShader />
+        <Route path={`/CubeShader`}>
+          <CubeShader />
         </Route>
         <Route path={`/PlaneGeometry`}>
           <PlaneGeometry />
