@@ -1,10 +1,11 @@
 import React, { useMemo, useEffect, useState, useCallback } from "react";
+import { FrontSide } from "three";
+import { useThree, useFrame, useUpdate } from "react-three-fiber";
 import Editor from "react-simple-code-editor";
 import Highlight, { defaultProps } from "prism-react-renderer";
-import { useThree, useFrame, useUpdate } from "react-three-fiber";
+import theme from "prism-react-renderer/themes/nightOwl";
 import { CanvasContainer } from "./CanvasContainer";
 import { loadTexture } from "../utils";
-import theme from "prism-react-renderer/themes/nightOwl";
 import { ButtonImageUpload } from "./ButtonImageUpload";
 import "./ShaderEditorLayout.css";
 
@@ -13,6 +14,8 @@ const Mesh = ({
   vertexShaderCode,
   fragmentShaderCode,
   textureUrl,
+  materialSide,
+  ...props
 }) => {
   const { mouse, clock, aspect } = useThree();
   const ref = useUpdate(
@@ -45,9 +48,9 @@ const Mesh = ({
   });
 
   return (
-    <mesh>
+    <mesh {...props}>
       {children}
-      <shaderMaterial ref={ref} attach="material" uniforms={uniforms} />
+      <shaderMaterial ref={ref} attach="material" uniforms={uniforms} side={materialSide} />
     </mesh>
   );
 };
@@ -100,7 +103,9 @@ export const ShaderEditorLayout = ({
   description,
   vertexShader,
   fragmentShader,
+  materialSide=FrontSide,
   textureEnable = true,
+  ...props
 }) => {
   const [textureUrl, setTextureUrl] = useState(texture);
   const handleUpload = (e) => {
@@ -127,6 +132,8 @@ export const ShaderEditorLayout = ({
             vertexShaderCode={vertexShaderCode}
             fragmentShaderCode={fragmentShaderCode}
             textureUrl={textureUrl}
+            materialSide={materialSide}
+            {...props}
           >
             {children}
           </Mesh>
