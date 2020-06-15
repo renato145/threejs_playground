@@ -6,7 +6,7 @@ const VERTEX_SHADER = /*glsl*/`
 
   void main() {
     vUv = uv;
-    gl_Position = vec4(position, 1.0 );
+    gl_Position = vec4(position, 1.0);
   }
 `;
 
@@ -49,7 +49,6 @@ const FRAGMENT_SHADER = /*glsl*/`
     gl_FragColor=vec4(col, 1.0);
   }
 `;
-
 
 export const FractalMandelBrot = () => {
   return (
