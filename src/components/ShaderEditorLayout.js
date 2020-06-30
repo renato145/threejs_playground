@@ -140,7 +140,7 @@ export const ShaderEditorLayout = ({
   return (
     <div>
       <div className="w-full grid grid-cols-6 grid-flow-row">
-        <div className={`row-span-2 ${showCode ? "col-span-3 xl:col-span-4}" : "col-span-6"}`}>
+        <div className={`row-span-2 ${showCode ? "col-span-3 xl:col-span-4" : "col-span-6"}`}>
           <CanvasContainer text={description} xtra={xtra_content}>
             <Mesh
               vertexShaderCode={vertexShaderCode}
