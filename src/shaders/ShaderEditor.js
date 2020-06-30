@@ -48,6 +48,7 @@ export const ShaderEditor = () => {
       texture={exampleTexture}
       vertexShader={VERTEX_SHADER}
       fragmentShader={FRAGMENT_SHADER}
+      doShowCode
     >
       <planeBufferGeometry attach="geometry" args={[2, 2]} />
     </ShaderEditorLayout>

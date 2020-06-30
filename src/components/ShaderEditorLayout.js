@@ -50,7 +50,12 @@ const Mesh = ({
   return (
     <mesh {...props}>
       {children}
-      <shaderMaterial ref={ref} attach="material" uniforms={uniforms} side={materialSide} />
+      <shaderMaterial
+        ref={ref}
+        attach="material"
+        uniforms={uniforms}
+        side={materialSide}
+      />
     </mesh>
   );
 };
@@ -104,7 +109,8 @@ export const ShaderEditorLayout = ({
   vertexShader,
   fragmentShader,
   xtra,
-  materialSide=FrontSide,
+  doShowCode=false,
+  materialSide = FrontSide,
   textureEnable = true,
   ...props
 }) => {
@@ -115,6 +121,7 @@ export const ShaderEditorLayout = ({
   };
   const [vertexShaderCode, setVertexShaderCode] = useState(vertexShader);
   const [fragmentShaderCode, setFragmentShaderCode] = useState(fragmentShader);
+  const [showCode, setShowCode] = useState(doShowCode);
 
   const xtra_content = useMemo(() => {
     if (!xtra && !textureEnable) return false;
@@ -128,37 +135,50 @@ export const ShaderEditorLayout = ({
     );
   }, [textureEnable, xtra]);
 
+  const handleClick = useCallback(() => setShowCode((show) => !show), []);
+
   return (
-    <div className="w-full grid grid-cols-6 grid-flow-row">
-      <div className="row-span-2 col-span-3 xl:col-span-4">
-        <CanvasContainer
-          text={description}
-          xtra={xtra_content}
-        >
-          <Mesh
-            vertexShaderCode={vertexShaderCode}
-            fragmentShaderCode={fragmentShaderCode}
-            textureUrl={textureUrl}
-            materialSide={materialSide}
-            {...props}
+    <div>
+      <div className="w-full grid grid-cols-6 grid-flow-row">
+        <div className={`row-span-2 ${showCode ? "col-span-3 xl:col-span-4}" : "col-span-6"}`}>
+          <CanvasContainer text={description} xtra={xtra_content}>
+            <Mesh
+              vertexShaderCode={vertexShaderCode}
+              fragmentShaderCode={fragmentShaderCode}
+              textureUrl={textureUrl}
+              materialSide={materialSide}
+              {...props}
+            >
+              {children}
+            </Mesh>
+          </CanvasContainer>
+        </div>
+        {showCode && (
+          <>
+        <div className="col-span-3 xl:col-span-2">
+          <CodeEditor
+            code={vertexShaderCode}
+            className="h-screen-49"
+            setCode={setVertexShaderCode}
+            />
+        </div>
+        <div className="col-span-3 xl:col-span-2">
+          <CodeEditor
+            code={fragmentShaderCode}
+            className="h-screen-49"
+            setCode={setFragmentShaderCode}
+            />
+        </div>
+          </>
+        )}
+      </div>
+      <div className="fixed top-0 right-0 mr-4">
+        <button
+          className="text-sm font-semibold opacity-75 focus:opacity-100 focus:shadow-none"
+          onClick={() => handleClick()}
           >
-            {children}
-          </Mesh>
-        </CanvasContainer>
-      </div>
-      <div className="col-span-3 xl:col-span-2">
-        <CodeEditor
-          code={vertexShaderCode}
-          className="h-screen-49"
-          setCode={setVertexShaderCode}
-        />
-      </div>
-      <div className="col-span-3 xl:col-span-2">
-        <CodeEditor
-          code={fragmentShaderCode}
-          className="h-screen-49"
-          setCode={setFragmentShaderCode}
-        />
+          {showCode ? "Hide editor" : "Show editor"}
+        </button>
       </div>
     </div>
   );
