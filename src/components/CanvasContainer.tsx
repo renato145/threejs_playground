@@ -1,14 +1,24 @@
-import React from "react";
+import React, { HTMLProps } from "react";
 import { Canvas } from "react-three-fiber";
 import { Stats } from "drei";
 
-export const Text = ({ children, tw="", ...props }) => (
+interface TextProps extends HTMLProps<HTMLDivElement> {
+  tw?: string;
+}
+
+export const Text: React.FC<TextProps> = ({ children, tw = "", ...props }) => (
   <div className={`text-center lg:text-lg ${tw}`} {...props}>
     <p>{children}</p>
   </div>
 );
 
-export const CanvasContainer = ({
+interface Props extends HTMLProps<HTMLDivElement> {
+  text: string;
+  xtra: React.ReactNode;
+  measure: React.RefObject<HTMLDivElement>;
+}
+
+export const CanvasContainer: React.FC<Props> = ({
   text,
   children,
   xtra,

@@ -5,6 +5,7 @@ import {
   NavLink,
   Switch,
   useLocation,
+  NavLinkProps,
 } from "react-router-dom";
 import styled from "styled-components";
 import { BoxGeometry } from "./shaders/BoxGeometry";
@@ -22,7 +23,7 @@ import { ExplodingSphere } from "./shaders/ExplodingSphere";
 import { ShaderEditor } from "./shaders/ShaderEditor";
 import "./index.css";
 
-const NLink = ({ children, ...props }) => (
+const NLink: React.FC<NavLinkProps> = ({ children, ...props }) => (
   <NavLink
     className="pb-1"
     activeClassName="text-gray-400 hover:text-gray-400 font-bold"
@@ -33,7 +34,11 @@ const NLink = ({ children, ...props }) => (
   </NavLink>
 );
 
-const NavBar = styled.div`
+interface NavBarProps {
+  isHome: boolean;
+}
+
+const NavBar = styled.div<NavBarProps>`
   position: absolute;
   display: flex;
   flex-wrap: wrap;
@@ -59,7 +64,7 @@ const NavBar = styled.div`
     }`}
 `;
 
-const HomeContent = () => (
+const HomeContent: React.FC = () => (
   <div className="pt-10 text-center">
     <h1>Threejs Playground</h1>
     <p className="mt-10">
@@ -75,7 +80,7 @@ const HomeContent = () => (
   </div>
 );
 
-const AppContent = () => {
+const AppContent: React.FC = () => {
   const location = useLocation();
   const isHome = location.pathname === "/";
 
@@ -151,7 +156,7 @@ const AppContent = () => {
   );
 };
 
-const App = () => (
+const App: React.FC = () => (
   <HashRouter basename="/">
     <AppContent />
   </HashRouter>
