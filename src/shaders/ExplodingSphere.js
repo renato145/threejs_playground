@@ -6,9 +6,12 @@ import { OrbitControls } from 'drei';
 
 const Mesh = () => {
   const { mouse, clock } = useThree();
-  const [ref, geometry] = useResource();
+  // const [ref, geometry] = useResource();
+  const geometryRef = useResource();
   const { randomDirections, randomStrengths } = useMemo(() => {
+    const geometry = geometryRef.current;
     if (!geometry) return {randomDirections: undefined, randomStrengths: undefined};
+    console.log('asd');
     const triangleCount = geometry.getAttribute("position").count / 3;
     const vec3 = new Vector3();
     const randomDirections = [];
@@ -29,7 +32,7 @@ const Mesh = () => {
       randomStrengths.push(...Array(3).fill(Math.random()));
     }
     return { randomDirections: new Float32Array(randomDirections), randomStrengths: new Float32Array(randomStrengths) };
-  }, [geometry]);
+  }, [geometryRef, geometryRef.current]);
 
   const shaderData = useMemo(() => {
     const vertexShader = /*glsl*/ `
@@ -81,7 +84,7 @@ const Mesh = () => {
   return (
     <mesh>
       {/* icosahedronBufferGeometry(radius : Float, detail : Integer) */}
-      <icosahedronBufferGeometry ref={ref} attach="geometry" args={[1.5, 6]}>
+      <icosahedronBufferGeometry ref={geometryRef} attach="geometry" args={[1.5, 25]}>
         {randomDirections && (<bufferAttribute
           attachObject={["attributes", "randomDirections"]}
           count={randomDirections.length / 3}
